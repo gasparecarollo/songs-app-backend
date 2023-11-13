@@ -1,7 +1,11 @@
 const express = require('express');
 const songs = express.Router();
+const reviewController = require("./reviewController");
+songs.use("/:songs_id/reviews", reviewController);
+
 const { getAllSongs, getSong, createSong, deleteSong, updateSong } = require('../queries/song');
 const { checkName, checkArtist, checkAlbum, checkTime, checkBoolean } = require('../validations/checkSongs');
+
 
 songs.get('/', async (req, res) => {
     const allSongs = await getAllSongs();
