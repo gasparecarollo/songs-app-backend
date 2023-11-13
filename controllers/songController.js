@@ -30,12 +30,13 @@ songs.get("/:id", async (req, res) => {
 })
 
 songs.post("/", checkName, checkArtist, checkAlbum, checkTime, checkBoolean, validateURL, async (req, res) => {
-    const body = req.body;
-    const song = await createSong(body)
-
-    res.json(song)
-
-})
+    try {
+        const song = await createSong(req.body);
+        res.json(song)
+    } catch (error) {
+        res.status(400).json({ error: error });
+    }
+});
 
 songs.delete("/:id", async (req, res) => {
     const { id } = req.params;

@@ -21,13 +21,14 @@ const getReview = async (id) => {
 
 const newReview = async (review) => {
     try {
-        const newReview = await db.one("INSERT INTO reviews (reviewer, title, content, rating, songs_id) VALUES ($1, $2, $3, $4, $5) RETURNING *", [
-
-            review.reviewer,
-            review.title,
-            review.content,
-            review.songs_id
-        ]
+        const newReview = await db.one("INSERT INTO reviews (reviewer, title, content, rating, songs_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+            [
+                review.reviewer,
+                review.title,
+                review.content,
+                review.rating,
+                review.songs_id
+            ]
         );
 
         return newReview;
