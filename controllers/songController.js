@@ -4,7 +4,7 @@ const reviewController = require("./reviewController");
 songs.use("/:songs_id/reviews", reviewController);
 
 const { getAllSongs, getSong, createSong, deleteSong, updateSong } = require('../queries/song');
-const { checkName, checkArtist, checkAlbum, checkTime, checkBoolean } = require('../validations/checkSongs');
+const { checkName, checkArtist, checkAlbum, checkTime, checkBoolean, validateURL } = require('../validations/checkSongs');
 
 
 songs.get('/', async (req, res) => {
@@ -29,7 +29,7 @@ songs.get("/:id", async (req, res) => {
     }
 })
 
-songs.post("/", checkName, checkArtist, checkAlbum, checkTime, checkBoolean, async (req, res) => {
+songs.post("/", checkName, checkArtist, checkAlbum, checkTime, checkBoolean, validateURL, async (req, res) => {
     const body = req.body;
     const song = await createSong(body)
 
@@ -51,7 +51,7 @@ songs.delete("/:id", async (req, res) => {
 
 })
 
-songs.put("/:id", checkName, checkArtist, checkAlbum, checkTime, checkBoolean, async (req, res) => {
+songs.put("/:id", checkName, checkArtist, checkAlbum, checkTime, checkBoolean, validateURL, async (req, res) => {
     const { id } = req.params;
     const body = req.body;
     const updatedSong = await updateSong(id, body)

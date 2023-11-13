@@ -56,6 +56,7 @@ reviews.put("/:id", async (req, res) => {
     }
 });
 
+//CREATE
 reviews.post("/", async (req, res) => {
     const { songs_id } = req.params;
     const review = await newReview({ songs_id, ...req.body });
@@ -67,10 +68,12 @@ reviews.post("/", async (req, res) => {
 reviews.delete("/:id", async (req, res) => {
     const { id } = req.params;
     const deletedReview = await deleteReview(id);
-    (deletedReview.id) {
+    if (deletedReview.id) {
         res.status(200).json(deletedReview);
 
     } else {
         res.status(404).json({ error: "Review not found" });
     }
 });
+
+module.exports = reviews;
